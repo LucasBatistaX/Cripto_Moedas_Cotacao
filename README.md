@@ -1,6 +1,4 @@
-# Cripto_Moedas_Cotação
-
-# 💹 Crypto Quotes App
+#💹 Cripto_Moedas_Cotação 
 
 Um aplicativo desenvolvido em **Flutter** para acompanhar cotações de criptomoedas em tempo real.  
 O objetivo do projeto é oferecer uma interface simples, responsiva e intuitiva para que usuários possam visualizar o preço das principais moedas digitais.
@@ -66,4 +64,5 @@ Desenvolvido por Lucas Batista
 
  🚀
 Se gostou do projeto, não esqueça de deixar uma ⭐ no repositório!
+
 
