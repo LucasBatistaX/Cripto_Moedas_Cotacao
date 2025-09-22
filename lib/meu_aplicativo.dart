@@ -1,4 +1,4 @@
-import 'package:aula_1/pages/moedas_pages.dart';
+import 'package:aula_1/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MeuAplicativo extends StatelessWidget {
@@ -11,9 +11,9 @@ class MeuAplicativo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
-        primarySwatch: Colors.indigo,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
       ),
-      home: MoedasPage(),
+      home: HomePage(),
     );
   }
 }
