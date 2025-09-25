@@ -1,4 +1,4 @@
-import 'package:aula_1/pages/home_page.dart';
+import 'package:BlueChain/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MeuAplicativo extends StatelessWidget {
@@ -12,6 +12,7 @@ class MeuAplicativo extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       home: HomePage(),
     );

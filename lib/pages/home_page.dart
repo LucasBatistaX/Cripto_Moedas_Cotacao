@@ -1,5 +1,5 @@
-import 'package:aula_1/pages/favoritas_page.dart';
-import 'package:aula_1/pages/moedas_pages.dart';
+import 'package:BlueChain/pages/favoritas_page.dart';
+import 'package:BlueChain/pages/moedas_pages.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,8 +46,8 @@ class _HomePageState extends State<HomePage> {
             curve: Curves.ease,
           );
         },
-        backgroundColor: Colors.indigo,
-        fixedColor: Colors.white,
+        backgroundColor: Colors.blueGrey[100],
+        fixedColor: Colors.indigo,
       ),
     );
   }

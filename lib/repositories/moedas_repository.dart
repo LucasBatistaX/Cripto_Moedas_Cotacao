@@ -1,4 +1,4 @@
-import 'package:aula_1/models/moeda.dart';
+import 'package:BlueChain/models/moeda.dart';
 
 class MoedaRepository {
   static List<Moeda> tabela = [

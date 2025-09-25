@@ -1,7 +1,8 @@
-import 'package:aula_1/models/moeda.dart';
-import 'package:aula_1/pages/moedas_detalhes_page.dart';
-import 'package:aula_1/repositories/favoritas_repository.dart';
-import 'package:aula_1/repositories/moedas_pages.dart';
+import 'package:BlueChain/configs/app_settings.dart';
+import 'package:BlueChain/models/moeda.dart';
+import 'package:BlueChain/pages/moedas_detalhes_page.dart';
+import 'package:BlueChain/repositories/favoritas_repository.dart';
+import 'package:BlueChain/repositories/moedas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -15,14 +16,42 @@ class MoedasPage extends StatefulWidget {
 
 class _MoedasPageState extends State<MoedasPage> {
   final tabela = MoedaRepository.tabela;
-  NumberFormat real = NumberFormat.currency(locale: 'pt_BR', name: 'R\$');
+  late NumberFormat real;
+  late Map<String, String> loc;
   List<Moeda> selecionadas = [];
   late FavoritasRepository favoritas;
+
+  readNumberFormat() {
+    loc = context.watch<AppSettings>().locale;
+    real = NumberFormat.currency(locale: loc['locale'], name: loc['name']);
+  }
+
+  changeLanguageButton() {
+    final locale = loc['locale'] == 'pt_BR' ? 'en_US' : 'pt_BR';
+    final name = loc['locale'] == 'pt_BR' ? '\$' : 'R\$';
+
+    return PopupMenuButton(
+      icon: Icon(Icons.language, color: Colors.white),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          child: ListTile(
+            leading: Icon(Icons.swap_vert),
+            title: Text('Usar $locale'),
+            onTap: () {
+              context.read<AppSettings>().setLocale(locale, name);
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   appBarDinamica() {
     if (selecionadas.isEmpty) {
       return AppBar(
         title: Text('Cripto Moedas'),
+        actions: [changeLanguageButton()],
         centerTitle: true,
         titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
       );
@@ -68,7 +97,7 @@ class _MoedasPageState extends State<MoedasPage> {
   Widget build(BuildContext context) {
     // favoritas = Provider.of<FavoritasRepository>(context);
     favoritas = context.watch<FavoritasRepository>();
-
+    readNumberFormat();
     return Scaffold(
       appBar: appBarDinamica(),
       body: ListView.separated(
@@ -84,7 +113,7 @@ class _MoedasPageState extends State<MoedasPage> {
                   tabela[moeda].nome,
                   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
-                if (favoritas.lista.contains(tabela[moeda]))
+                if (favoritas.lista.any((fav) => fav.sigla == tabela[moeda].sigla))
                   Icon(Icons.star, color: Colors.amber, size: 14),
               ],
             ),
