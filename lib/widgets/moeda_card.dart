@@ -1,13 +1,13 @@
-import 'package:aula_1/models/moeda.dart';
-import 'package:aula_1/pages/moedas_detalhes_page.dart';
-import 'package:aula_1/repositories/favoritas_repository.dart';
+import 'package:BlueChain/models/moeda.dart';
+import 'package:BlueChain/pages/moedas_detalhes_page.dart';
+import 'package:BlueChain/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class MoedaCard extends StatefulWidget {
   final Moeda moeda;
-  
+
   const MoedaCard({super.key, required this.moeda});
 
   @override
@@ -15,6 +15,15 @@ class MoedaCard extends StatefulWidget {
 }
 
 class _MoedaCardState extends State<MoedaCard> {
+  static Map<String, Color> precoColor = <String, Color>{
+    'up': Colors.teal,
+    'down': Colors.indigo,
+  };
+
+  final NumberFormat real = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+
+  late Map<String, String> loc;
+
   abrirDetalhes() {
     Navigator.push(
       context,
@@ -56,6 +65,44 @@ class _MoedaCardState extends State<MoedaCard> {
                     ],
                   ),
                 ),
+              ),
+              Container(
+                padding: EdgeInsetsGeometry.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
+                ),
+                decoration: BoxDecoration(
+                  color: precoColor['down']!.withOpacity(0.05),
+                  border: Border.all(
+                    color: precoColor['down']!.withOpacity(0.4),
+                  ),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Text(
+                  real.format(widget.moeda.preco),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: precoColor['down'],
+                    letterSpacing: -1,
+                  ),
+                ),
+              ),
+              PopupMenuButton(
+                icon: Icon(Icons.more_vert, color: Colors.black),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: ListTile(
+                      title: Text('Remover das Favoritas'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Provider.of<FavoritasRepository>(
+                          context,
+                          listen: false,
+                        ).remove(widget.moeda);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

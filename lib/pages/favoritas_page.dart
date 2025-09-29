@@ -1,7 +1,8 @@
-import 'package:aula_1/repositories/favoritas_repository.dart';
-import 'package:aula_1/widgets/moeda_card.dart';
+import 'package:BlueChain/repositories/favoritas_repository.dart';
+import 'package:BlueChain/widgets/moeda_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:BlueChain/pages/moedas_pages.dart';
 
 class FavoritasPage extends StatefulWidget {
   FavoritasPage({super.key});

@@ -1,12 +1,20 @@
-import 'package:aula_1/meu_aplicativo.dart';
-import 'package:aula_1/repositories/favoritas_repository.dart';
+import 'package:BlueChain/configs/app_settings.dart';
+import 'package:BlueChain/configs/hive_config.dart';
+import 'package:BlueChain/meu_aplicativo.dart';
+import 'package:BlueChain/repositories/favoritas_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveConfig.start(); 
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => FavoritasRepository(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AppSettings()),
+        ChangeNotifierProvider(create: (context) => FavoritasRepository()),
+      ],
       child: MeuAplicativo(),
     ),
   );
